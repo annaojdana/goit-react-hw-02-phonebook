@@ -1,19 +1,17 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 
-export const Button = ({ img, title,onClick }) => {
-  const { button, button__img } = styles;
+export const Button = ({ type,title, onClick }) => {
+  const { button } = styles;
 
   return (
-    <button className={button} onClick={onClick}>
-      <img className={button__img} src={img} alt={`${title} smiley face`} />
+    <button className={button} onClick={onClick} type={type}>
       {title}
     </button>
   );
 };
 
 Button.propTypes = {
-  title: PropTypes.string,
-  img: PropTypes.string,
-
+  title: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
