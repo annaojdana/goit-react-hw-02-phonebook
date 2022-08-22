@@ -44,13 +44,14 @@ class App extends Component {
   };
 
   handleFilter = e => {
-    this.setState({filter: e.target.value});
+    this.setState({ filter: e.target.value });
   };
 
-  deleteContact = id => {
-    this.setState(({ contacts }) => {
-      contacts.filter(contact => contact.id !== id);
-    });
+  removeContact = id => {
+    const newContactList = this.state.contacts.filter(
+      contact => contact.id !== id
+    );
+    this.setState({ ...this.state, contacts: newContactList });
   };
 
   setFilterContacts = (filterValue, contactsArray) => {
@@ -58,9 +59,10 @@ class App extends Component {
       return contactsArray;
     } else {
       return contactsArray.filter(contact => {
-        return contact.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase());
-     });
-
+        return contact.name
+          .toLocaleLowerCase()
+          .includes(filterValue.toLocaleLowerCase());
+      });
     }
   };
 
@@ -74,13 +76,13 @@ class App extends Component {
         </Section>
         <Section title="Contacts">
           {this.state.contacts.length > 0 ? (
-            <>
-              <Filter onChange={this.handleFilter} />
+            ((<Filter onChange={this.handleFilter} />),
+            (
               <ContactList
-                contacts={this.setFilterContacts(filter,contacts)}
-                onClick={this.deleteContact}
+                contacts={this.setFilterContacts(filter, contacts)}
+                removeContact={this.removeContact}
               />
-            </>
+            ))
           ) : (
             <Notification message="Your phonebook is empty" />
           )}

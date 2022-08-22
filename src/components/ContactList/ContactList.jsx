@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 class ContactList extends Component {
   render() {
-    const { contacts, onClick } = this.props;
+    const { contacts, removeContact } = this.props;
     const { wrapper, text, button } = styles;
 
     return (
@@ -12,11 +12,11 @@ class ContactList extends Component {
         {contacts.map(contact => {
           return (
             <li className={text} key={contact.id}>
-              {`${contact.name}: ${contact.number}`}
+              <span>{`${contact.name}: ${contact.number}`}</span>
               <button
                 type="button"
                 className={button}
-                onClick={onClick(contact.id)}
+                onClick={() => removeContact(contact.id)}
               >
                 Delete
               </button>
