@@ -43,9 +43,8 @@ class App extends Component {
     }));
   };
 
-  handleFilter = event => {
-    this.setState({ ...this.state, filter: event.target.value });
-    console.log(this.state.filter);
+  handleFilter = e => {
+    this.setState({filter: e.target.value});
   };
 
   deleteContact = id => {
@@ -58,10 +57,10 @@ class App extends Component {
     if (!filterValue) {
       return contactsArray;
     } else {
-      contactsArray.filter((contact) => {
-        contact.name.toLowerCase().includes(filterValue.toLowerCase());
-      });
-      return contactsArray;
+      return contactsArray.filter(contact => {
+        return contact.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase());
+     });
+
     }
   };
 
