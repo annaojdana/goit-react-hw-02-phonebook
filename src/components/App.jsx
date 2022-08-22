@@ -75,14 +75,14 @@ class App extends Component {
           <ContactForm onSubmit={this.onSubmit} />
         </Section>
         <Section title="Contacts">
-          {this.state.contacts.length > 0 ? (
-            ((<Filter onChange={this.handleFilter} />),
-            (
+          {contacts.length > 0 ? (
+            <>
+              <Filter onChange={this.handleFilter} />
               <ContactList
                 contacts={this.setFilterContacts(filter, contacts)}
                 removeContact={this.removeContact}
               />
-            ))
+            </>
           ) : (
             <Notification message="Your phonebook is empty" />
           )}
