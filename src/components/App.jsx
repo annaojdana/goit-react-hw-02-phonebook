@@ -1,14 +1,20 @@
 import styles from './App.module.css';
 import Section from 'components/Section/Section';
 import ContactForm from 'components/ContactForm/ContactForm';
-// import Statistics from 'components/Statistics/Statistics';
 import { nanoid } from 'nanoid';
 import React, { Component } from 'react';
-// import { Notification } from 'components/Notification/Notification';
+import ContactList from './ContactList/ContactList';
+import { Notification } from 'components/Notification/Notification';
+import Filter from './Filter/Filter';
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
   };
 
@@ -37,25 +43,48 @@ class App extends Component {
     }));
   };
 
+  handleFilter = event => {
+    this.setState({ ...this.state, filter: event.target.value });
+    console.log(this.state.filter);
+  };
+
+  deleteContact = id => {
+    this.setState(({ contacts }) => {
+      contacts.filter(contact => contact.id !== id);
+    });
+  };
+
+  setFilterContacts = (filterValue, contactsArray) => {
+    if (!filterValue) {
+      return contactsArray;
+    } else {
+      contactsArray.filter((contact) => {
+        contact.name.toLowerCase().includes(filterValue.toLowerCase());
+      });
+      return contactsArray;
+    }
+  };
+
   render() {
     const { wrapper } = styles;
+    const { contacts, filter } = this.state;
     return (
       <div className={wrapper}>
         <Section title="Phonebook">
           <ContactForm onSubmit={this.onSubmit} />
         </Section>
         <Section title="Contacts">
-          {/* {this.countTotalFeedback() > 0 ? (
-            <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
-            />
+          {this.state.contacts.length > 0 ? (
+            <>
+              <Filter onChange={this.handleFilter} />
+              <ContactList
+                contacts={this.setFilterContacts(filter,contacts)}
+                onClick={this.deleteContact}
+              />
+            </>
           ) : (
-            <Notification message="There is no feedback" />
-          )} */}
+            <Notification message="Your phonebook is empty" />
+          )}
         </Section>
       </div>
     );
