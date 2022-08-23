@@ -1,5 +1,5 @@
 import styles from './Section.module.css';
-
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class Section extends Component {
@@ -16,3 +16,7 @@ class Section extends Component {
 }
 
 export default Section;
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired
+};

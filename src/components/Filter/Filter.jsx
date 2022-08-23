@@ -1,6 +1,6 @@
 import styles from './Filter.module.css';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 class Filter extends React.Component {
   render() {
     const { onChange } = this.props;
@@ -15,3 +15,6 @@ class Filter extends React.Component {
 }
 
 export default Filter;
+Filter.propTypes = {
+  onChange: PropTypes.func
+};
