@@ -1,5 +1,5 @@
 import styles from './ContactList.module.css';
-
+import { Notification } from 'components/Notification/Notification';
 import React, { Component } from 'react';
 
 class ContactList extends Component {
@@ -8,22 +8,27 @@ class ContactList extends Component {
     const { wrapper, text, button } = styles;
 
     return (
-      <ul className={wrapper}>
-        {contacts.map(contact => {
-          return (
-            <li className={text} key={contact.id}>
-              <span>{`${contact.name}: ${contact.number}`}</span>
-              <button
-                type="button"
-                className={button}
-                onClick={() => removeContact(contact.id)}
-              >
-                Delete
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        {(contacts.length > 0) ?
+            (<ul className={wrapper}>
+              {contacts.map(contact => {
+                return (
+                  <li className={text} key={contact.id}>
+                    <span>{`${contact.name}: ${contact.number}`}</span>
+                    <button
+                      type="button"
+                      className={button}
+                      onClick={() => removeContact(contact.id)}
+                    >
+                      Delete
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>) :
+            (<Notification message="You don't have this contact"/>)
+        }
+      </>
     );
   }
 }
